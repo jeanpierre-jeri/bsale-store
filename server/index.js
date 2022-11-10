@@ -14,7 +14,7 @@ app.use(cors())
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
-app.use('/api/products', routerProducts)
+app.use('/api', routerProducts)
 
 app.use(express.static(join(__dirname, '../client/dist')))
 

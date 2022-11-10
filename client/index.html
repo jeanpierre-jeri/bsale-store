@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="./index.css" />
     <title>BSALE</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   </head>
   <body class="bg-gray-300">
     <header class="text-gray-600 body-font bg-gray-200">
@@ -22,6 +23,7 @@
                   class="rounded-l-full w-full py-1 px-6 text-gray-700 leading-tight focus:outline-none bg-white"
                   id="search"
                   name="search"
+                  placeholder="ej: pisco"
                 />
                 <div class="p-2">
                   <button
@@ -50,10 +52,21 @@
     </header>
     <main class="container mx-auto p-5">
       <div
+        id="categories"
+        class="col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4 flex gap-4 flex-wrap justify-center"
+      >
+        <button
+          data-category=""
+          class="category bg-blue-600 px-4 py-1 text-gray-200 rounded-full font-semibold hover:bg-blue-600"
+        >
+          Todos
+        </button>
+      </div>
+      <div id="loading" class="text-center text-2xl font-bold mt-10">Cargando...</div>
+      <div
         id="products"
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 place-items-center"
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 place-items-center mt-10"
       ></div>
-      <div id="loading">Cargando...</div>
     </main>
     <div
       id="modal"

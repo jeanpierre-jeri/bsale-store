@@ -17,8 +17,10 @@ app.use(cors())
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
+const specs = swaggerJsDoc(options)
+
 app.use('/api', routerProducts)
-app.use('/documentation', swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(options)))
+app.use('/documentation', swaggerUI.serve, swaggerUI.setup(specs))
 app.use(express.static(join(__dirname, '../client/dist')))
 
 app.listen(PORT, () => {

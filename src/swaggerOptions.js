@@ -9,8 +9,11 @@ export const options = {
     servers: [
       {
         url: 'https://bsale-store-production.up.railway.app/api'
+      },
+      {
+        url: 'http://localhost:4000/api'
       }
     ]
   },
-  apis: ['./routes/*.js']
+  apis: ['src/routes/*.js']
 }

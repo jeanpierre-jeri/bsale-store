@@ -1,6 +1,6 @@
 import './styles.css'
 
-const BASE_API = 'http://localhost:4000/api'
+const BASE_API = 'https://bsale-store-production.up.railway.app/api'
 const $ = (selector) => document.querySelector(selector)
 
 const products = []

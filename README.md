@@ -24,8 +24,8 @@ Open [http://localhost:5173](http://localhost:5173) with your browser to see the
 
 ## Documentation
 
-Open [url](url)
+Open [https://bsale-store-production.up.railway.app/documentation](https://bsale-store-production.up.railway.app/documentation)
 
 ## Deploy URL
 
-Open [url](url)
+Open [https://bsale-store-production.up.railway.app/](https://bsale-store-production.up.railway.app/)

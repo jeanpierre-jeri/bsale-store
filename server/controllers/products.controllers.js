@@ -3,6 +3,8 @@ import { pool } from '../db/connection.db.js'
 export const getAllProducts = async (req, res) => {
   const { name = '', order = 'category', category = '' } = req.query
 
+  const orderTypes = ['category', 'name', 'price']
+
   const searchName = `%${name}%`
 
   let categoryQuery = ''
@@ -15,6 +17,13 @@ export const getAllProducts = async (req, res) => {
 
   if (order.includes(':')) {
     const [orderName, ascOrDesc] = order.split(':')
+
+    if (!orderTypes.includes(orderName)) {
+      return res.status(400).json({
+        message: `Invalid order term ${orderTerm}`,
+        validOrderTerms: orderTypes
+      })
+    }
 
     orderTerm = pool.escapeId(orderName)
     if (ascOrDesc === 'desc') {
@@ -31,6 +40,10 @@ export const getAllProducts = async (req, res) => {
       ORDER BY ${orderTerm} ${orderDirection}`,
       { name: searchName, category }
     )
+
+    if (!result.length) {
+      return res.status(404).json({ status: 'NOT_FOUND', message: 'No products found' })
+    }
 
     res.json(result)
   } catch (error) {

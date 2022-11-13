@@ -1,3 +1,5 @@
+import './styles.css'
+
 const BASE_API = 'http://localhost:4000/api'
 const $ = (selector) => document.querySelector(selector)
 
@@ -25,34 +27,31 @@ const getProductsAndCategories = async () => {
 
 const setProducts = () => {
   if (!products.length) {
-    $('#products').innerHTML = 'No hay productos para mostrar'
+    $('#products').innerHTML =
+      '<p class="text-center text-2xl col-span-1 sm:col-span-2 md:col-span-3 lg:col-span-4">No hay productos para mostrar...</p>'
     return
   }
   const fragment = document.createDocumentFragment()
   products.forEach((product) => {
     const discount = product.discount > 0 ? product.price : ''
-    const div = document.createElement('div')
-    div.classList =
+    const article = document.createElement('article')
+    article.classList =
       'bg-gray-200 max-w-full rounded overflow-hidden shadow-lg hover:shadow-xl opacity-2 flex flex-col h-full w-full'
-    div.innerHTML = `<img 
-            src="${product.url_image || '/no-photos.png'}" 
-            alt="bebida"
-            class="object-scale-down bg-white h-80 w-full"
-        >
-        <h3 class="itemName p-3 text-center text-base font-bold">${product.name?.toUpperCase()}</h3>
-        <div class="flex justify-between border-t border-gray-400 p-3 items-center">
-        <div class="flex gap-2">
-                <p class="priceValue font-bold text-sm">$${product.price - product.discount}</p>
-                <span class="line-through">${discount}</span>
-            </div>
-            <button onclick="addToCart(${product.id}, '${product.name}', ${product.price - product.discount}, '${
-      product.url_image
-    }')" class="product bg-gray-300 rounded-full px-3 py-2 hover:bg-gray-400 cursor-pointer"><i class="fas fa-cart-plus"></i></button>
-        </div>
+    article.innerHTML = `
+    <img 
+      src="${product.url_image || '/no-photos.png'}" 
+      alt="bebida"
+      class="object-scale-down bg-white h-80 w-full"
+    >
+      <h3 class="itemName p-3 text-center text-base font-bold">${product.name?.toUpperCase()}</h3>
+      <div class="flex justify-center border-t border-gray-400 p-3 items-center gap-2">
+      <p class="priceValue font-bold text-lg">$${product.price - product.discount}</p>
+      <span class="line-through text-xs">${discount}</span>
+      </div>
     </div>
     `
 
-    fragment.appendChild(div)
+    fragment.appendChild(article)
   })
 
   $('#products').appendChild(fragment)
@@ -114,8 +113,10 @@ const handleSubmit = async (e) => {
   products.length = 0
 
   try {
-    const productsData = await fetch(`${BASE_API}/products?name=${search}`).then((resp) => resp.json())
-    products.push(...productsData)
+    const data = await fetch(`${BASE_API}/products?name=${search}`).then((resp) => resp.json())
+    if (!(data.status === 'NOT_FOUND')) {
+      products.push(...data)
+    }
     setProducts()
   } catch (error) {
     console.log(error.message)
